@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>Book a Free Class — Vanderson Gomes BJJ</title>
+<meta name="description" content="Book your free first Brazilian Jiu-Jitsu class at Vanderson Gomes BJJ in O'Fallon, MO. Pick a program, pick a day, and you're set." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f2f1ee; --surface:#ffffff; --surface-2:#e7e5e1;
+    --ink:#161719; --muted:#55585e; --line:#c9c7c3;
+    --red:#c9182b; --red-strong:#a80f21; --red-soft:#fae4e7;
+    --hero:#111214; --hero-2:#202226; --on-dark:#ffffff; --on-dark-muted:#d3d4d6;
+    --gold:#f2bc34; --accent:#ff4057;
+    --shadow:0 18px 45px rgba(12,13,15,.12);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{overflow-x:hidden}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Source Sans 3",sans-serif; font-size:17px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:"Barlow Condensed",sans-serif; margin:0}
+  button{font-family:inherit}
+  img,svg{display:block}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(160deg,var(--hero) 0%,var(--hero-2) 100%);
+    color:var(--on-dark); padding:34px 20px 40px;
+    position:relative; overflow:hidden;
+  }
+  .hero-inner{max-width:760px; margin:0 auto; position:relative; z-index:1}
+  .hero .gym-name{
+    font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:19px;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--on-dark);
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero .gym-name .belt{flex:0 0 auto; width:34px; height:10px; border-radius:2px;
+    background:linear-gradient(90deg,var(--red) 0 78%,#fff 78% 84%,var(--red) 84% 100%);}
+  .hero h1{
+    font-weight:900; line-height:.98; letter-spacing:-.025em;
+    font-size:clamp(52px,13vw,84px); margin:16px 0 12px; text-transform:uppercase;
+  }
+  .hero h1 .accent{color:var(--accent)}
+  .hero p{margin:0; color:var(--on-dark-muted); font-size:18px; max-width:52ch}
+  .hero .free-tag{
+    display:inline-flex; align-items:center; gap:8px; margin-top:18px;
+    background:var(--red); color:#fff; font-weight:800; font-size:15px;
+    padding:8px 14px; border-radius:999px; letter-spacing:.02em;
+  }
+  .hero .free-tag svg{width:16px; height:16px}
+  .hero::after{
+    content:""; position:absolute; right:-70px; top:-70px; width:230px; height:230px;
+    border-radius:50%; border:26px solid rgba(201,24,43,.22);
+  }
+
+  /* ---------- LAYOUT ---------- */
+  .wrap{max-width:760px; margin:0 auto; padding:26px 20px 56px}
+  .step{margin-bottom:34px}
+  .step-head{display:flex; align-items:center; gap:12px; margin-bottom:14px}
+  .step-num{
+    flex:0 0 auto; width:34px; height:34px; border-radius:50%;
+    background:var(--ink); color:#fff; font-weight:800; font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .step-head h2{font-size:30px; font-weight:800; letter-spacing:-.01em; text-transform:uppercase; line-height:1}
+  .step-head .hint{margin-left:auto; color:var(--muted); font-size:14.5px; text-align:right}
+
+  /* ---------- PROGRAM CARDS ---------- */
+  .programs{display:grid; grid-template-columns:1fr; gap:14px}
+  @media(min-width:560px){.programs{grid-template-columns:1fr 1fr}}
+  .program{
+    text-align:left; width:100%; background:var(--surface); border:2px solid var(--line);
+    border-radius:var(--radius); padding:20px; cursor:pointer; color:var(--ink);
+    transition:border-color .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .program:hover{border-color:var(--red)}
+  .program.selected{border-color:var(--red); background:#fff; box-shadow:var(--shadow)}
+  .program .p-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}
+  .program h3{font-size:30px; font-weight:800; text-transform:uppercase; line-height:1}
+  .program .check{
+    flex:0 0 auto; width:26px; height:26px; border-radius:50%; border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; color:#fff;
+  }
+  .program.selected .check{background:var(--red); border-color:var(--red)}
+  .program .check svg{width:14px; height:14px; opacity:0}
+  .program.selected .check svg{opacity:1}
+  .program .p-meta{display:flex; align-items:center; gap:8px; color:var(--muted); margin-top:10px; font-size:15.5px}
+  .program .p-meta svg{width:17px; height:17px; flex:0 0 auto; color:var(--red)}
+  .program .p-price{margin-top:12px; display:flex; align-items:baseline; gap:8px}
+  .program .p-price .amt{font-family:"Barlow Condensed",sans-serif; font-size:30px; font-weight:800; line-height:1}
+  .program .p-price .per{color:var(--muted); font-size:15px}
+  .program .p-price .after{margin-left:auto; font-size:13.5px; color:var(--muted); text-align:right}
+  .program .p-free{margin-top:10px; font-weight:800; color:var(--red-strong); font-size:15px; display:flex; gap:7px; align-items:center}
+  .program .p-free svg{width:16px; height:16px}
+
+  /* ---------- CIRCLE CALENDAR ---------- */
+  .cal-card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:18px 14px 8px; box-shadow:var(--shadow)}
+  .cal-month{font-family:"Barlow Condensed",sans-serif; font-size:22px; font-weight:800; text-transform:uppercase; letter-spacing:.02em; padding:0 6px 10px}
+  .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:2px}
+  .cal-cell{display:flex; flex-direction:column; align-items:center; padding:5px 0 9px; min-width:0}
+  .cal-wd{font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:5px}
+  .cal-day{
+    width:50px; height:50px; max-width:12.5vw; max-height:12.5vw; aspect-ratio:1/1;
+    border-radius:50%; border:2px solid var(--line); background:#fff; color:var(--ink);
+    font-size:18px; font-weight:700; cursor:pointer; padding:0;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .12s ease, border-color .12s ease, color .12s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .cal-day:hover:not(:disabled), .cal-day:active:not(:disabled){background:var(--red-soft); border-color:var(--red)}
+  .cal-day.selected{background:var(--red); border-color:var(--red); color:#fff; box-shadow:0 8px 18px rgba(201,24,43,.35)}
+  .cal-day:disabled{border-color:#e3e1dd; background:var(--bg); color:#b9b7b2; cursor:not-allowed; font-weight:600}
+  .cal-day .today-dot{position:relative}
+  .cal-legend{display:flex; gap:16px; flex-wrap:wrap; padding:12px 6px 10px; color:var(--muted); font-size:14px}
+  .cal-legend span{display:inline-flex; align-items:center; gap:7px}
+  .cal-legend .dot{width:14px; height:14px; border-radius:50%; border:2px solid var(--line); background:#fff}
+  .cal-legend .dot.sel{background:var(--red); border-color:var(--red)}
+  .cal-legend .dot.off{background:var(--bg); border-color:#e3e1dd}
+  .cal-pick{padding:4px 6px 12px; font-weight:700; min-height:28px}
+  .cal-pick .none{color:var(--muted); font-weight:600}
+  .cal-pick strong{color:var(--red-strong)}
+
+  /* ---------- FORM ---------- */
+  .form-card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:22px 20px; box-shadow:var(--shadow)}
+  .grid2{display:grid; grid-template-columns:1fr; gap:16px}
+  @media(min-width:560px){.grid2{grid-template-columns:1fr 1fr}}
+  .field{margin-bottom:16px}
+  .field label{display:block; font-weight:800; font-size:15px; margin-bottom:7px}
+  .input-wrap{position:relative}
+  .input-wrap svg{
+    position:absolute; left:13px; top:50%; transform:translateY(-50%);
+    width:19px; height:19px; color:var(--muted); pointer-events:none;
+  }
+  .input-wrap input, .input-wrap select{
+    width:100%; min-height:52px; border:2px solid var(--line); border-radius:8px;
+    background:#fff; color:var(--ink); font:inherit; font-size:16px;
+    padding:12px 14px 12px 42px; appearance:none; -webkit-appearance:none;
+  }
+  .input-wrap select{padding-right:38px}
+  .input-wrap .chev{left:auto; right:13px}
+  .input-wrap input:focus, .input-wrap select:focus{outline:none; border-color:var(--red); box-shadow:0 0 0 3px var(--red-soft)}
+  .levels{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px}
+  .level{
+    min-height:50px; min-width:0; border:2px solid var(--line); border-radius:8px; background:#fff;
+    font-weight:800; font-size:14.5px; cursor:pointer; color:var(--ink); padding:8px 2px;
+    display:flex; align-items:center; justify-content:center; gap:5px;
+    text-align:center; line-height:1.15; overflow-wrap:anywhere;
+  }
+  @media(min-width:560px){.level{font-size:15.5px; padding:8px 4px}}
+  .level svg{width:16px; height:16px; color:var(--muted)}
+  .level.selected{border-color:var(--red); background:var(--red-soft); color:var(--red-strong)}
+  .level.selected svg{color:var(--red)}
+  .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden}
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    min-height:50px; border-radius:8px; border:none; cursor:pointer;
+    font-weight:800; font-size:17px; padding:13px 22px; text-decoration:none;
+    transition:background .15s ease, transform .1s ease;
+  }
+  .btn svg{width:20px; height:20px; flex:0 0 auto}
+  .btn-primary{background:var(--red); color:#fff; width:100%}
+  .btn-primary:hover{background:var(--red-strong)}
+  .btn-primary:disabled{background:#d98a94; cursor:wait}
+  .error-line{
+    display:none; margin-top:14px; background:var(--red-soft); color:var(--red-strong);
+    border:1px solid var(--red); border-radius:8px; padding:12px 14px; font-weight:700; font-size:15.5px;
+  }
+  .error-line.show{display:flex; gap:9px; align-items:flex-start}
+  .error-line svg{width:19px; height:19px; flex:0 0 auto; margin-top:2px}
+  .fineprint{margin-top:14px; color:var(--muted); font-size:14.5px; text-align:center}
+
+  /* ---------- FOOTER INFO ---------- */
+  .visit{background:var(--surface-2); border-radius:var(--radius); padding:20px; display:grid; gap:14px}
+  .visit h2{font-size:26px; font-weight:800; text-transform:uppercase}
+  .visit .row{display:flex; gap:11px; align-items:flex-start; color:var(--ink)}
+  .visit .row svg{width:20px; height:20px; flex:0 0 auto; color:var(--red); margin-top:2px}
+  .visit a{color:var(--red-strong); font-weight:700; text-decoration:none}
+  .visit a:hover{text-decoration:underline}
+  footer{padding:22px 20px 34px; text-align:center; color:var(--muted); font-size:14px}
+
+  /* ---------- CONFIRMATION ---------- */
+  .confirm-hero{
+    background:linear-gradient(160deg,var(--hero) 0%,var(--hero-2) 100%);
+    color:var(--on-dark); padding:44px 20px 46px; text-align:center; position:relative; overflow:hidden;
+  }
+  .confirm-hero::after{
+    content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-120px;
+    width:260px; height:260px; border-radius:50%; border:26px solid rgba(201,24,43,.20);
+  }
+  .confirm-badge{
+    width:76px; height:76px; margin:0 auto 18px; border-radius:50%;
+    background:var(--red); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 14px 30px rgba(201,24,43,.45); position:relative; z-index:1;
+  }
+  .confirm-badge svg{width:38px; height:38px; color:#fff}
+  .confirm-hero h1{font-weight:900; line-height:.98; letter-spacing:-.025em; font-size:clamp(44px,11vw,68px); text-transform:uppercase; position:relative; z-index:1}
+  .confirm-hero h1 .accent{color:var(--accent)}
+  .confirm-hero p{color:var(--on-dark-muted); margin:12px auto 0; max-width:46ch; position:relative; z-index:1}
+  .confirm-hero .dup-note{
+    margin:16px auto 0; max-width:46ch; background:rgba(242,188,52,.16); border:1px solid var(--gold);
+    color:#ffe9ad; border-radius:8px; padding:11px 14px; font-weight:700; font-size:15.5px; position:relative; z-index:1;
+  }
+  .confirm-wrap{max-width:640px; margin:-26px auto 0; padding:0 20px 56px; position:relative; z-index:2}
+  .detail-card{background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px 22px; border:1px solid var(--line)}
+  .detail-card h2{font-size:24px; font-weight:800; text-transform:uppercase; margin-bottom:14px}
+  .detail{display:flex; gap:12px; padding:11px 0; border-top:1px solid var(--surface-2)}
+  .detail:first-of-type{border-top:none}
+  .detail svg{width:20px; height:20px; flex:0 0 auto; color:var(--red); margin-top:2px}
+  .detail .k{font-size:13.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+  .detail .v{font-weight:700; font-size:17.5px}
+  .ref-chip{
+    display:inline-block; background:var(--red-soft); color:var(--red-strong);
+    font-weight:800; letter-spacing:.06em; padding:3px 10px; border-radius:6px; font-size:16px;
+  }
+  .email-note{display:flex; gap:10px; align-items:flex-start; margin-top:18px; background:var(--surface-2); border-radius:8px; padding:13px 14px; font-size:15.5px}
+  .email-note svg{width:19px; height:19px; flex:0 0 auto; color:var(--red); margin-top:2px}
+  .btn-dark{background:var(--ink); color:#fff; width:100%; margin-top:20px}
+  .btn-dark:hover{background:#000}
+  .btn-ghost{background:transparent; color:var(--ink); border:2px solid var(--line); width:100%; margin-top:12px}
+  .btn-ghost:hover{border-color:var(--ink)}
+  .confirm-help{margin-top:18px; text-align:center; color:var(--muted); font-size:15px}
+  .confirm-help a{color:var(--red-strong); font-weight:700; text-decoration:none}
+  .hidden{display:none !important}
+</style>
+</head>
+<body>
+
+<!-- ============ BOOKING VIEW ============ -->
+<div id="bookingView">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="gym-name"><span class="belt" aria-hidden="true"></span> Vanderson Gomes BJJ</div>
+      <h1>Your first class is <span class="accent">free.</span></h1>
+      <p>Pick your program, choose a day that works, and book your free Brazilian Jiu-Jitsu class in O'Fallon. You'll get a confirmation email — and we'll be ready for you on the mat.</p>
+      <span class="free-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        First class free — no experience needed
+      </span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- STEP 1 -->
+    <section class="step" aria-labelledby="s1">
+      <div class="step-head">
+        <span class="step-num">1</span>
+        <h2 id="s1">Pick a program</h2>
+      </div>
+      <div class="programs">
+        <button type="button" class="program selected" id="progKids" aria-pressed="true">
+          <span class="p-top">
+            <h3>Kids</h3>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          </span>
+          <span class="p-meta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Mon · Tue · Wed · Thu
+          </span>
+          <span class="p-meta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            6:00 – 7:00 PM
+          </span>
+          <span class="p-price"><span class="amt">$120</span><span class="per">/ month</span><span class="after">after your<br/>free first class</span></span>
+          <span class="p-free">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            First class free
+          </span>
+        </button>
+
+        <button type="button" class="program" id="progAdults" aria-pressed="false">
+          <span class="p-top">
+            <h3>Teens &amp; Adults</h3>
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          </span>
+          <span class="p-meta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Mon · Wed · Fri
+          </span>
+          <span class="p-meta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            7:30 – 9:00 PM
+          </span>
+          <span class="p-price"><span class="amt">$140</span><span class="per">/ month</span><span class="after">after your<br/>free first class</span></span>
+          <span class="p-free">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            First class free
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step" aria-labelledby="s2">
+      <div class="step-head">
+        <span class="step-num">2</span>
+        <h2 id="s2">Pick a day</h2>
+        <span class="hint">Next 14 days</span>
+      </div>
+      <div class="cal-card">
+        <div class="cal-month" id="calMonth"></div>
+        <div class="cal-grid" id="calGrid" role="group" aria-label="Choose a class day"></div>
+        <div class="cal-legend">
+          <span><span class="dot"></span> Class day</span>
+          <span><span class="dot off"></span> No class</span>
+          <span><span class="dot sel"></span> Your pick</span>
+        </div>
+        <div class="cal-pick" id="calPick"><span class="none">Tap a circled day to choose your class.</span></div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step" aria-labelledby="s3">
+      <div class="step-head">
+        <span class="step-num">3</span>
+        <h2 id="s3">Your details</h2>
+      </div>
+      <form class="form-card" id="bookForm" novalidate>
+        <div class="grid2">
+          <div class="field">
+            <label for="firstName">First name</label>
+            <div class="input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input id="firstName" name="firstName" type="text" autocomplete="given-name" placeholder="First name" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="lastName">Last name</label>
+            <div class="input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input id="lastName" name="lastName" type="text" autocomplete="family-name" placeholder="Last name" required />
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <div class="input-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <div class="input-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(636) 555-1234" required />
+          </div>
+        </div>
+        <div class="field">
+          <label>Experience level</label>
+          <div class="levels" role="group" aria-label="Experience level">
+            <button type="button" class="level selected" data-level="Beginner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></svg>
+              Beginner
+            </button>
+            <button type="button" class="level" data-level="Intermediate">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Intermediate
+            </button>
+            <button type="button" class="level" data-level="Advanced">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+              Advanced
+            </button>
+          </div>
+        </div>
+
+        <div class="hp" aria-hidden="true">
+          <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="error-line" id="errorLine" role="alert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <span id="errorText"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submitBtn" style="margin-top:20px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+          <span id="submitLabel">Book my free class</span>
+        </button>
+        <p class="fineprint">Free first class. No card, no commitment — just show up ready to train.</p>
+      </form>
+    </section>
+
+    <!-- VISIT -->
+    <section class="visit" aria-labelledby="visitH">
+      <h2 id="visitH">Visit the academy</h2>
+      <div class="row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>4261 Keaton Crossing Blvd<br/>O'Fallon, MO 63368</span>
+      </div>
+      <div class="row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>Questions? Call us at <a href="tel:+16364271404">(636) 427-1404</a></span>
+      </div>
+      <div class="row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        <span><a href="mailto:vandersongomesbjj@gmail.com">vandersongomesbjj@gmail.com</a></span>
+      </div>
+    </section>
+  </main>
+
+  <footer>Vanderson Gomes Brazilian Jiu-Jitsu · O'Fallon, Missouri</footer>
+</div>
+
+<!-- ============ CONFIRMATION VIEW ============ -->
+<div id="confirmView" class="hidden">
+  <header class="confirm-hero">
+    <div class="confirm-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <h1 id="confirmHeadline">You're <span class="accent">booked</span></h1>
+    <p id="confirmSub">Your free class is set. We can't wait to see you on the mat.</p>
+    <div class="dup-note hidden" id="dupNote">You're already booked for this class — here are your details. No need to book again.</div>
+  </header>
+
+  <div class="confirm-wrap">
+    <div class="detail-card">
+      <h2>Your class</h2>
+      <div class="detail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div><div class="k">Program</div><div class="v" id="dProgram"></div></div>
+      </div>
+      <div class="detail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <div><div class="k">Day</div><div class="v" id="dDay"></div></div>
+      </div>
+      <div class="detail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div><div class="k">Time</div><div class="v" id="dTime"></div></div>
+      </div>
+      <div class="detail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div><div class="k">Where</div><div class="v">4261 Keaton Crossing Blvd, O'Fallon, MO 63368</div></div>
+      </div>
+      <div class="detail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>
+        <div><div class="k">Booking reference</div><div class="v"><span class="ref-chip" id="dRef"></span></div></div>
+      </div>
+
+      <div class="email-note hidden" id="emailNote">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        <span id="emailNoteText"></span>
+      </div>
+
+      <button type="button" class="btn btn-dark" id="icsBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M12 11v6M9 14.5h6"/></svg>
+        Add to calendar
+      </button>
+      <button type="button" class="btn btn-ghost" id="againBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Book another free class
+      </button>
+      <p class="confirm-help">Need to change your day? Call <a href="tel:+16364271404">(636) 427-1404</a> or email <a href="mailto:vandersongomesbjj@gmail.com">vandersongomesbjj@gmail.com</a>.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var ENDPOINT = "https://rqesrbingluxyludjtrh.supabase.co/functions/v1/booking-submit";
+  var ADDRESS = "4261 Keaton Crossing Blvd, O'Fallon, MO 63368";
+
+  var PROGRAMS = {
+    "Kids":           { days:[1,2,3,4], start:"18:00", end:"19:00", startLabel:"6:00 PM", endLabel:"7:00 PM", timeLabel:"6:00 – 7:00 PM" },
+    "Teens & Adults": { days:[1,3,5],   start:"19:30", end:"21:00", startLabel:"7:30 PM", endLabel:"9:00 PM", timeLabel:"7:30 – 9:00 PM" }
+  };
+
+  var state = { program:"Kids", date:null, dateISO:null, level:"Beginner" };
+
+  var WD_SHORT = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  var WD_LONG  = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  var MO_LONG  = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+  function pad(n){ return (n<10?"0":"")+n; }
+  function isoOf(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+  function longDay(d){ return WD_LONG[d.getDay()]+", "+MO_LONG[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear(); }
+
+  /* ----- Program selection ----- */
+  var progKids = document.getElementById("progKids");
+  var progAdults = document.getElementById("progAdults");
+  function setProgram(name){
+    state.program = name;
+    progKids.classList.toggle("selected", name==="Kids");
+    progKids.setAttribute("aria-pressed", name==="Kids" ? "true" : "false");
+    progAdults.classList.toggle("selected", name==="Teens & Adults");
+    progAdults.setAttribute("aria-pressed", name==="Teens & Adults" ? "true" : "false");
+    buildCalendar();
+  }
+  progKids.addEventListener("click", function(){ setProgram("Kids"); });
+  progAdults.addEventListener("click", function(){ setProgram("Teens & Adults"); });
+
+  /* ----- Circle calendar ----- */
+  var calGrid = document.getElementById("calGrid");
+  var calMonth = document.getElementById("calMonth");
+  var calPick = document.getElementById("calPick");
+
+  function buildCalendar(){
+    var prog = PROGRAMS[state.program];
+    var today = new Date(); today.setHours(0,0,0,0);
+    calGrid.innerHTML = "";
+    var months = [];
+    var firstAvailable = null;
+
+    for (var i=0; i<14; i++){
+      var d = new Date(today.getFullYear(), today.getMonth(), today.getDate()+i);
+      var mLabel = MO_LONG[d.getMonth()]+" "+d.getFullYear();
+      if (months.indexOf(mLabel)===-1) months.push(mLabel);
+
+      var cell = document.createElement("div");
+      cell.className = "cal-cell";
+      var wd = document.createElement("div");
+      wd.className = "cal-wd";
+      wd.textContent = WD_SHORT[d.getDay()];
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "cal-day";
+      btn.textContent = d.getDate();
+      var isClass = prog.days.indexOf(d.getDay())!==-1;
+      btn.setAttribute("aria-label", longDay(d) + (isClass ? " — class available" : " — no class"));
+      if (!isClass){
+        btn.disabled = true;
+      } else {
+        if (!firstAvailable) firstAvailable = d;
+        (function(dateCopy){
+          btn.addEventListener("click", function(){ selectDay(dateCopy); });
+        })(d);
+        if (state.date && isoOf(state.date)===isoOf(d)){
+          btn.classList.add("selected");
+          btn.setAttribute("aria-pressed","true");
+        }
+      }
+      cell.appendChild(wd);
+      cell.appendChild(btn);
+      calGrid.appendChild(cell);
+    }
+    calMonth.textContent = months.join("  ·  ");
+
+    /* Keep the previous pick if it's still a class day for this program; otherwise clear to the prompt. */
+    if (state.date && prog.days.indexOf(state.date.getDay())!==-1 && state.date >= today){
+      renderPick();
+    } else {
+      state.date = null; state.dateISO = null;
+      calPick.innerHTML = '<span class="none">Tap a circled day to choose your class.</span>';
+    }
+  }
+
+  function selectDay(d){
+    state.date = d;
+    state.dateISO = isoOf(d);
+    var btns = calGrid.querySelectorAll(".cal-day");
+    for (var i=0;i<btns.length;i++) btns[i].classList.remove("selected");
+    var cells = calGrid.children;
+    var today = new Date(); today.setHours(0,0,0,0);
+    var idx = Math.round((d - today)/86400000);
+    if (cells[idx]) cells[idx].querySelector(".cal-day").classList.add("selected");
+    renderPick();
+    hideError();
+  }
+
+  function renderPick(){
+    if (!state.date) return;
+    var prog = PROGRAMS[state.program];
+    calPick.innerHTML = "Your class: <strong>" + longDay(state.date) + "</strong> · " + prog.timeLabel;
+  }
+
+  /* ----- Level selection ----- */
+  var levelBtns = document.querySelectorAll(".level");
+  levelBtns.forEach(function(b){
+    b.addEventListener("click", function(){
+      levelBtns.forEach(function(x){ x.classList.remove("selected"); });
+      b.classList.add("selected");
+      state.level = b.getAttribute("data-level");
+    });
+  });
+
+  /* ----- Errors ----- */
+  var errorLine = document.getElementById("errorLine");
+  var errorText = document.getElementById("errorText");
+  function showError(msg){
+    errorText.textContent = msg;
+    errorLine.classList.add("show");
+    errorLine.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+  function hideError(){ errorLine.classList.remove("show"); }
+
+  /* ----- Submit ----- */
+  var form = document.getElementById("bookForm");
+  var submitBtn = document.getElementById("submitBtn");
+  var submitLabel = document.getElementById("submitLabel");
+  var lastBooking = null;
+
+  form.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    hideError();
+    var firstName = document.getElementById("firstName").value.trim();
+    var lastName  = document.getElementById("lastName").value.trim();
+    var email     = document.getElementById("email").value.trim();
+    var phone     = document.getElementById("phone").value.trim();
+
+    if (!state.dateISO){ showError("Please pick a class day first — tap one of the circled days above."); return; }
+    if (!firstName || !lastName){ showError("Please enter your first and last name."); return; }
+    if (!email || email.indexOf("@")===-1 || email.indexOf(".")===-1){ showError("Please enter a valid email address — your confirmation goes there."); return; }
+    if (!phone || phone.replace(/\D/g,"").length < 7){ showError("Please enter a valid phone number."); return; }
+
+    submitBtn.disabled = true;
+    submitLabel.textContent = "Booking your class…";
+
+    var payload = {
+      firstName:firstName, lastName:lastName, email:email, phone:phone,
+      level:state.level, program:state.program, dateISO:state.dateISO,
+      website:document.getElementById("website").value
+    };
+
+    fetch(ENDPOINT, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(payload)
+    }).then(function(res){
+      return res.json().then(function(data){ return { status:res.status, data:data }; });
+    }).then(function(out){
+      submitBtn.disabled = false;
+      submitLabel.textContent = "Book my free class";
+      if (out.status >= 200 && out.status < 300 && out.data && out.data.ok){
+        lastBooking = {
+          firstName:firstName, email:email, program:state.program,
+          date:state.date, dateISO:state.dateISO,
+          ref:out.data.ref, emailOk:!!out.data.emailOk, duplicate:!!out.data.duplicate
+        };
+        showConfirmation();
+      } else {
+        var msg = (out.data && out.data.error) ? out.data.error : "Something went wrong. Please try again, or call us at (636) 427-1404.";
+        showError(msg);
+      }
+    }).catch(function(){
+      submitBtn.disabled = false;
+      submitLabel.textContent = "Book my free class";
+      showError("We couldn't reach the booking system. Please check your connection and try again, or call us at (636) 427-1404.");
+    });
+  });
+
+  /* ----- Confirmation ----- */
+  function showConfirmation(){
+    var b = lastBooking;
+    var prog = PROGRAMS[b.program];
+    document.getElementById("confirmHeadline").innerHTML =
+      "You're <span class=\"accent\">booked</span>, " + escapeHtml(b.firstName);
+    document.getElementById("dupNote").classList.toggle("hidden", !b.duplicate);
+    document.getElementById("dProgram").textContent = b.program + " — Free Class";
+    document.getElementById("dDay").textContent = longDay(b.date);
+    document.getElementById("dTime").textContent = prog.timeLabel;
+    document.getElementById("dRef").textContent = b.ref;
+    var emailNote = document.getElementById("emailNote");
+    if (b.emailOk){
+      document.getElementById("emailNoteText").textContent = "A confirmation email is on its way to " + b.email + " — it includes a calendar invite and everything you need for your first class.";
+      emailNote.classList.remove("hidden");
+    } else {
+      emailNote.classList.add("hidden");
+    }
+    document.getElementById("bookingView").classList.add("hidden");
+    document.getElementById("confirmView").classList.remove("hidden");
+    window.scrollTo(0,0);
+  }
+
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  /* ----- .ics download ----- */
+  document.getElementById("icsBtn").addEventListener("click", function(){
+    if (!lastBooking) return;
+    var b = lastBooking;
+    var prog = PROGRAMS[b.program];
+    var ymd = b.dateISO.replace(/-/g,"");
+    var dtStart = ymd + "T" + prog.start.replace(":","") + "00";
+    var dtEnd   = ymd + "T" + prog.end.replace(":","") + "00";
+    var now = new Date();
+    var stamp = now.getUTCFullYear()+pad(now.getUTCMonth()+1)+pad(now.getUTCDate())+"T"+
+                pad(now.getUTCHours())+pad(now.getUTCMinutes())+pad(now.getUTCSeconds())+"Z";
+    var ics = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Vanderson Gomes BJJ//Free Class Booking//EN",
+      "BEGIN:VEVENT",
+      "UID:" + b.ref + "@vandersongomesbjj.com",
+      "DTSTAMP:" + stamp,
+      "DTSTART:" + dtStart,
+      "DTEND:" + dtEnd,
+      "SUMMARY:Free class - Vanderson Gomes BJJ (" + b.program + ")",
+      "LOCATION:" + ADDRESS,
+      "DESCRIPTION:Your free first Brazilian Jiu-Jitsu class. Booking reference " + b.ref + ". Questions: (636) 427-1404.",
+      "END:VEVENT",
+      "END:VCALENDAR"
+    ].join("\r\n");
+    var blob = new Blob([ics], { type:"text/calendar;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "free-class-vanderson-gomes-bjj.ics";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+  });
+
+  document.getElementById("againBtn").addEventListener("click", function(){
+    document.getElementById("confirmView").classList.add("hidden");
+    document.getElementById("bookingView").classList.remove("hidden");
+    window.scrollTo(0,0);
+  });
+
+  buildCalendar();
+})();
+</script>
+</body>
+</html>
